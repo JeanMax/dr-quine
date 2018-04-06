@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/06 14:12:14 by mc               ###   ########.fr        #
+#    Updated: 2018/04/06 21:43:23 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -71,7 +71,7 @@ CC =		clang -no-pie
 ASM =		nasm -f elf64
 else
 CC =		clang
-ASM =		nasm -f macho64 -g --prefix _
+ASM =		nasm -f macho64 --prefix _
 endif
 
 # default to "pretty" Makefile, but you can run ´VERBOSE=t make´
