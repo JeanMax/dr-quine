@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/06 13:15:58 by mc               ###   ########.fr        #
+#    Updated: 2018/04/06 13:49:10 by mc               ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -24,7 +24,7 @@ SRC_NAME = Grace.c
 SRC_PATH = .
 
 # folder-names containing headers files
-INC_PATH = include
+INC_PATH =
 
 # extra libraries needed for linking
 LDLIBS =
@@ -42,8 +42,8 @@ CPPFLAGS =
 
 # compilation/linking flags for the differents public rules
 WFLAGS = -Wextra -Wall  # warnings
-RCFLAGS = $(WFLAGS) -Werror -O2 -march=native  # release
-DCFLAGS = $(WFLAGS) -g3 -DDEBUG  # debug
+RCFLAGS = $(WFLAGS) -Werror -O2  # release
+DCFLAGS = $(WFLAGS) -g -DDEBUG  # debug
 SCFLAGS = $(DCFLAGS) -fsanitize=address,undefined -ferror-limit=5  # sanitize
 WWFLAGS = $(WFLAGS) -Wpedantic -Wshadow -Wconversion -Wcast-align \
   -Wstrict-prototypes -Wmissing-prototypes -Wunreachable-code -Winit-self \
