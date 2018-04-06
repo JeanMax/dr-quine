@@ -2,34 +2,43 @@
 ;    Colleen.s
 ;
 
+%define QUOTE 34
+%define ENDL 10
+%define YAY 0
+
 section .text
-global start
-global _main
-extern _printf
+    global start
+    global main
+    extern printf
 
 start:
-    call _main
+    call main
     ret
 
-another_useful_function:
-	ret
-
-_main:
-;
-;    this is the tricky part
-;
+prolog:
     push rbp
     mov rbp, rsp
-    sub rsp, 16
+    ret
 
-    mov rax, 0
-    lea rdi, [rel code]
-    lea rsi, [rel code]
-    call _printf
-
-	call another_useful_function
+epilog:
+    mov eax, YAY
     leave
     ret
 
+main:
+;
+;    this is the tricky part
+;
+    call prolog
+
+    lea rdi, [rel code]
+    mov rsi, ENDL
+    mov rdx, QUOTE
+    lea rcx, [rel code]
+    call printf
+
+    call epilog
+    ret
+
 section .data
-    code db ";", 10, ";    Colleen.s", 10, ";", 10, 10, "section .text", 10, "global start", 10, "global _main", 10, "extern _printf", 10, 10, "start:", 10, "    call _main", 10, "    ret", 10, 10, "_main:", 10, ";", 10, ";    this is the tricky part", 10, ";", 10, "    push rbp", 10 , "    mov rbp, rsp", 10, "    sub rsp, 16", 10, 10, "    mov rax, 0", 10, "    lea rdi, [rel code]", 10, "    call _printf", 10, 10, "    leave", 10, "    ret", 10, 10, "section .data", 10, "    code db %s", 10
+    code db ";%1$c;    Colleen.s%1$c;%1$c%1$c%%define QUOTE 34%1$c%%define ENDL 10%1$c%%define YAY 0%1$c%1$csection .text%1$c    global start%1$c    global main%1$c    extern printf%1$c%1$cstart:%1$c    call main%1$c    ret%1$c%1$cprolog:%1$c    push rbp%1$c    mov rbp, rsp%1$c    ret%1$c%1$cepilog:%1$c    mov eax, YAY%1$c    leave%1$c    ret%1$c%1$cmain:%1$c;%1$c;    this is the tricky part%1$c;%1$c    call prolog%1$c%1$c    lea rdi, [rel code]%1$c    mov rsi, ENDL%1$c    mov rdx, QUOTE%1$c    lea rcx, [rel code]%1$c    call printf%1$c%1$c    call epilog%1$c    ret%1$c%1$csection .data%1$c    code db %2$c%3$s%2$c%1$c"
