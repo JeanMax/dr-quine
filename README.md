@@ -2,5 +2,5 @@
 
 ## TODO
 
-* Makefile
+* grace: strictly 3 defines
 * asm
