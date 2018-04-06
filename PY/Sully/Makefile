@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/06 14:25:17 by mc               ###   ########.fr        #
+#    Updated: 2018/04/06 14:36:42 by mc               ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -77,7 +77,7 @@ re: fclean
 
 # run tests on project
 test: all
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT)\ndiff $(PROJECT)_5.py $(PROJECT).py\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).py $(PROJECT)_""$$""i.py || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT)\ndiff $(PROJECT)_5.py $(PROJECT).py\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).py $(PROJECT)_""$$""i.py || true\n done\n" > test
 	chmod a+x test
 	./test
 
