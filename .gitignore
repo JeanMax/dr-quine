@@ -1,4 +1,4 @@
-*.o
-Colleen
-Grace
-Sully
+*.dev
+*.san
+test
+obj/
