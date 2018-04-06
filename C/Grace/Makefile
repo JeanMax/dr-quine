@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/06 13:49:10 by mc               ###   ########.fr        #
+#    Updated: 2018/04/06 14:12:14 by mc               ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -154,7 +154,7 @@ testsan: san
 ##
 
 # create binary (link)
-$(PROJECT): $(LFT_DIR)/$(LFT) $(OBJ)
+$(PROJECT): $(OBJ)
 	$(CC) $(CFLAGS) $(INC) $(LDFLAGS) $(OBJ) $(LDLIBS) -o $@
 
 # create object files (compile)
