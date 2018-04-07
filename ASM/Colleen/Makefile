@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/06 21:43:23 by mcanal           ###   ########.fr        #
+#    Updated: 2018/04/07 12:48:34 by mc               ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -102,12 +102,12 @@ all:
 # build for gdb/valgrind debugging
 dev:
 	+$(MAKE) $(PROJECT).dev "PROJECT = $(PROJECT).dev" "CFLAGS = $(DCFLAGS)" \
-		"OBJ_PATH = $(OBJ_DIR)/dev"
+		"OBJ_PATH = $(OBJ_DIR)/dev" "CPPFLAGS = -F dwarf"
 
 # build for runtime debugging (fsanitize)
 san:
 	+$(MAKE) $(PROJECT).san "PROJECT = $(PROJECT).san" "CFLAGS = $(DCFLAGS)" \
-		"LDFLAGS = $(SCFLAGS)" "OBJ_PATH = $(OBJ_DIR)/san"
+		"CPPFLAGS = -F dwarf" "LDFLAGS = $(SCFLAGS)" "OBJ_PATH = $(OBJ_DIR)/san"
 
 # masochist build
 mecry:
