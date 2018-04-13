@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/07 12:48:19 by mc               ###   ########.fr        #
+#    Updated: 2018/04/14 00:04:43 by mc               ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -69,9 +69,13 @@ SUB_MAKE =	make -C
 ifeq ($(shell uname), Linux)
 CC =		clang -no-pie
 ASM =		nasm -f elf64
+$(shell sed -i 's/macho64 --prefix _/  elf64           /' $(SRC_NAME))
+$(shell sed -i 's/clang        /clang -no-pie/' $(SRC_NAME))
 else
 CC =		clang
 ASM =		nasm -f macho64 --prefix _
+$(shell sed -i 's/  elf64           /macho64 --prefix _/' $(SRC_NAME))
+$(shell sed -i 's/clang -no-pie/clang        /' $(SRC_NAME))
 endif
 
 # default to "pretty" Makefile, but you can run ´VERBOSE=t make´
@@ -138,19 +142,19 @@ re: fclean
 
 # run tests on project
 test: all
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT)\ndiff $(PROJECT)_5.s $(PROJECT).s\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).s $(PROJECT)_""$$""i.s || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT)\ndiff $(PROJECT)_5.s $(PROJECT).s\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).s $(PROJECT)_""$$""i.s || true\n test -f $(PROJECT)_""$$""i\ndone\nsed -i 's/COUNTER 5/COUNTER -1/' Sully.s\nmake\nsed -i 's/COUNTER -1/COUNTER 5/' Sully.s\n./$(PROJECT)\nmake\n" > test
 	chmod a+x test
 	./test
 
 # run tests on project (debug mode)
 testdev: dev
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).dev\ndiff $(PROJECT)_5.s $(PROJECT).s\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).s $(PROJECT)_""$$""i.s || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test.dev
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).dev\ndiff $(PROJECT)_5.s $(PROJECT).s\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).s $(PROJECT)_""$$""i.s || true\n test -f $(PROJECT)_""$$""i\ndone\nsed -i 's/COUNTER 5/COUNTER -1/' Sully.s\nmake dev\nsed -i 's/COUNTER -1/COUNTER 5/' Sully.s\n./$(PROJECT).dev\nmake dev\n" > test.dev
 	chmod a+x test.dev
 	./test.dev
 
 # run tests on project (sanitize mode)
 testsan: san
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).san\ndiff $(PROJECT)_5.s $(PROJECT).s\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).s $(PROJECT)_""$$""i.s || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test.san
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).san\ndiff $(PROJECT)_5.s $(PROJECT).s\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).s $(PROJECT)_""$$""i.s || true\n test -f $(PROJECT)_""$$""i\ndone\nsed -i 's/COUNTER 5/COUNTER -1/' Sully.s\nmake san\nsed -i 's/COUNTER -1/COUNTER 5/' Sully.s\n./$(PROJECT).san\nmake san\n" > test.san
 	chmod a+x test.san
 	./test.san
 

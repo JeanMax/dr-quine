@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2018/04/06 14:12:14 by mc               ###   ########.fr        #
+#    Updated: 2018/04/13 22:51:21 by mc               ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -132,19 +132,19 @@ re: fclean
 
 # run tests on project
 test: all
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT)\ndiff $(PROJECT)_5.c $(PROJECT).c\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).c $(PROJECT)_""$$""i.c || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT)\ndiff $(PROJECT)_5.c $(PROJECT).c\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).c $(PROJECT)_""$$""i.c || true\n test -f $(PROJECT)_""$$""i\ndone\nsed -i 's/i = 5/i = -1/' Sully.c\nmake\nsed -i 's/i = -1/i = 5/' Sully.c\n./$(PROJECT)\nmake\n" > test
 	chmod a+x test
 	./test
 
 # run tests on project (debug mode)
 testdev: dev
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).dev\ndiff $(PROJECT)_5.c $(PROJECT).c\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).c $(PROJECT)_""$$""i.c || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test.dev
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).dev\ndiff $(PROJECT)_5.c $(PROJECT).c\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).c $(PROJECT)_""$$""i.c || true\n test -f $(PROJECT)_""$$""i\ndone\nsed -i 's/i = 5/i = -1/' Sully.c\nmake dev\nsed -i 's/i = -1/i = 5/' Sully.c\n./$(PROJECT).dev\nmake dev\n" > test.dev
 	chmod a+x test.dev
 	./test.dev
 
 # run tests on project (sanitize mode)
 testsan: san
-	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).san\ndiff $(PROJECT)_5.c $(PROJECT).c\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).c $(PROJECT)_""$$""i.c || true\n test -f $(PROJECT)_""$$""i\ndone\n" > test.san
+	printf "#!/bin/bash -ex\n\n$(RM) $(PROJECT)_*\n./$(PROJECT).san\ndiff $(PROJECT)_5.c $(PROJECT).c\ntest -f $(PROJECT)_5\nfor i in {5..1}; do\n diff $(PROJECT)_""$$""((i-1)).c $(PROJECT)_""$$""i.c || true\n test -f $(PROJECT)_""$$""i\ndone\nsed -i 's/i = 5/i = -1/' Sully.c\nmake san\nsed -i 's/i = -1/i = 5/' Sully.c\n./$(PROJECT).san\nmake san\n" > test.san
 	chmod a+x test.san
 	./test.san
 
